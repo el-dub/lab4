@@ -147,8 +147,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Pack.cpp" />
     <ClCompile Include="func.cpp" />
     <ClCompile Include="lab4.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Pack.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

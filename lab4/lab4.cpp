@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include "Pack.h"
 
 using namespace std;
 
@@ -7,8 +8,12 @@ void arguments(int argc, char* argv[], char& option, string& output, string* inp
 int main(int argc, char* argv[])
 {
 	cout << "Hello, world!" << endl;
-
-
+	
+	string path = "G:\\2019 учебный год\\КПИ\\2 семестр\\Prog";
+	vector<string> files = { "photo.jpg" };
+	string result = "result.txt";
+	Pack p1(files, path, result);
+	p1.Compress();
 	if (argc >= 4) {
 		char option;
 		string output;
@@ -24,7 +29,8 @@ int main(int argc, char* argv[])
 		}
 	}
 	else {
-		cout << "You need to run the program from cmd";
+		cout << "You need to run the program from cmd" << endl;		
 	}
+	
 
 }

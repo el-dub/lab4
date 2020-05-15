@@ -14,3 +14,5 @@ private:
 	string path;//путь к файлам
 	string archive_file_name;//имя файла-результата архивирования
 };
+
+

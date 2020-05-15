@@ -152,6 +152,7 @@
     <ClCompile Include="lab4.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Archiver.h" />
     <ClInclude Include="Pack.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

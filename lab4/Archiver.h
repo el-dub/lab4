@@ -31,17 +31,17 @@ public:
 		//test for rle_decomp() 
 		//should be deleted
 		//and doesn't work
-		//FILE* ind;
-		//fopen_s(&ind,"file1_z.txt", "rb");
-		//FILE* maind;
-		//fopen_s(&maind,"file1_z_decompr.txt" , "wb");
-		//rle_decomp(ind, maind);
-		//fclose(ind);
-		//fclose(maind);
+		FILE* ind;
+		fopen_s(&ind,"file1_z.txt", "rb");
+		FILE* maind;
+		fopen_s(&maind,"file1_z_decompr.txt" , "wb");
+		rle_decomp(ind, maind);
+		fclose(ind);
+		fclose(maind);
 		//end
 	}
 	void rle_comp(FILE*, FILE*);
-	//void rle_decomp(FILE* input, FILE* output);
+	void rle_decomp(FILE* input, FILE* output);
 };
 
 void Arch::rle_comp(FILE* input, FILE* output) {
@@ -71,28 +71,28 @@ void Arch::rle_comp(FILE* input, FILE* output) {
 	}
 }
 
-//inline void Arch::rle_decomp(FILE* input, FILE* output)//error here
-//{
-//	char ch, prev_ch;
-//	int numb_of_same;
-//	prev_ch = fgetc(input);
-//	fputc(prev_ch, output);
-//	ch = fgetc(input);
-//	
-//
-//	while (ch != EOF) {
-//		if (isdigit(ch)) {
-//			//error
-//			//needs to be the thing that reads digits like "12" (reads only something like "1")
-//			int numb_of_same = (int)ch;
-//			while (numb_of_same > 0) {
-//				fputc(prev_ch, output);
-//			}
-//		}
-//		else {
-//			fputc(ch, output);
-//			prev_ch = ch;
-//			ch = fgetc(input);
-//		}
-//	}
-//}
+inline void Arch::rle_decomp(FILE* input, FILE* output)//error here
+{
+	char ch, prev_ch;
+	int numb_of_same=0;
+	ch = fgetc(input);
+	while (ch != EOF) {
+		if (isdigit(ch)) {
+			string s = "";
+			while (isdigit(ch)) {
+				s += ch;
+				ch = fgetc(input);
+			}
+			numb_of_same = stoi(s);
+			for (int i = 0; i < numb_of_same; ++i) {
+				fputc(ch, output);
+			}
+			ch = fgetc(input);
+			numb_of_same = 0;
+		}
+		else {
+			fputc(ch, output);
+			ch = fgetc(input);
+		}
+	}
+}

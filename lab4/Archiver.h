@@ -45,57 +45,53 @@ public:
 };
 
 void Arch::rle_comp(FILE* input, FILE* output) {
-	char ch, prev_ch; 
+	char ch, prev_ch;
 	int numb_of_same;
-	prev_ch = fgetc(input);
 	ch = fgetc(input);
-	fputc(prev_ch, output);
-	while (ch  != EOF) {
-		fputc(ch, output);
-		if (ch == prev_ch) {
-			numb_of_same = 0;
-			while ((ch = fgetc(input)) != EOF) {
-				if (ch == prev_ch) {
-					numb_of_same++;
-				}
-				else {
-					string s = to_string(numb_of_same);
-					char const* pch = s.c_str();
-					while (*pch) {
-						fputc(*pch++, output);
-					}
-					fputc(ch, output);
-					break;
-				}
-			}
-		}
+	while (ch != EOF) {
 		prev_ch = ch;
 		ch = fgetc(input);
+		if (ch != prev_ch) {
+			fputc(prev_ch, output);
+		}
+		else {
+			numb_of_same = 1;
+			while (ch == prev_ch) {
+				prev_ch = ch;
+				ch = fgetc(input);
+				++numb_of_same;
+			}
+			string s = to_string(numb_of_same);
+			char const* pch = s.c_str();
+			while (*pch) {
+				fputc(*pch++, output);
+			}
+			fputc(prev_ch, output);
+		}
 	}
-	fputc(numb_of_same, output);
 }
 
 inline void Arch::rle_decomp(FILE* input, FILE* output)//error here
 {
 	char ch, prev_ch;
-	int numb_of_same;
-	prev_ch = fgetc(input);
-	fputc(prev_ch, output);
+	int numb_of_same=0;
 	ch = fgetc(input);
-	
-
 	while (ch != EOF) {
 		if (isdigit(ch)) {
-			//error
-			//needs to be the thing that reads digits like "12" (reads only something like "1")
-			int numb_of_same = (int)ch;
-			while (numb_of_same > 0) {
-				fputc(prev_ch, output);
+			string s = "";
+			while (isdigit(ch)) {
+				s += ch;
+				ch = fgetc(input);
 			}
+			numb_of_same = stoi(s);
+			for (int i = 0; i < numb_of_same; ++i) {
+				fputc(ch, output);
+			}
+			ch = fgetc(input);
+			numb_of_same = 0;
 		}
 		else {
 			fputc(ch, output);
-			prev_ch = ch;
 			ch = fgetc(input);
 		}
 	}

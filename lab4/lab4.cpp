@@ -17,12 +17,13 @@ int main(int argc, char* argv[])
 	Pack p1(files, path, result);
 	p1.Compress();*/
 
-	string* input = new string[2];
-	input[0] = "file1.txt";
-	input[1] = "file2.png";
+	vector <string> input = { "file1.txt","file2.txt" };
 	string output = "our_archive.mgzip";
-	Arch ar = Arch(input, 2, output);
+	Arch ar = Arch(input, output);
 	ar.archive();
+	Arch dear("our_archive.mgzip");
+	dear.dearchive();
+	cout << "smthng";
 
 	if (argc >= 4) {
 		char option;

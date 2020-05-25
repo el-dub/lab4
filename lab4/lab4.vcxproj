@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Archiver.cpp" />
     <ClCompile Include="Pack.cpp" />
     <ClCompile Include="func.cpp" />
     <ClCompile Include="lab4.cpp" />

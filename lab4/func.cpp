@@ -1,9 +1,9 @@
 #include <iostream>
 #include <string>
-
+#include <vector>
 using namespace std;
 
-void arguments(int argc, char* argv[], char &option,string &output, string*input) {
+void arguments(int argc, char* argv[], char &option,string &output, vector <string>& input) {
 	string s = "";
 
 	//second param is option "--compress" or "--decompress"
@@ -17,7 +17,13 @@ void arguments(int argc, char* argv[], char &option,string &output, string*input
 
 	//to get all that is left 
 	for (int i = 3; i < argc; i++) {
-		input[i-3] = argv[i];
+		input.push_back(argv[i]);
 	}
 }
+
+
+
+
+
+
 

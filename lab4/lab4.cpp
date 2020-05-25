@@ -4,44 +4,52 @@
 
 using namespace std;
 
-void arguments(int argc, char* argv[], char& option, string& output, string* input);
-
+void arguments(int argc, char* argv[], char& option, string& output, vector <string>& input);
+void perform_arch(vector <string> input, string output);
+void perform_dearch(string output);
 
 int main(int argc, char* argv[])
 {
 	
-	
-	/*string path = "G:\\2019 учебный год\\КПИ\\2 семестр\\Prog";
-	vector<string> files = { "photo.jpg" };
-	string result = "result.txt";
-	Pack p1(files, path, result);
-	p1.Compress();*/
 
-	vector <string> input = { "file1.txt","file2.txt" };
-	string output = "our_archive.mgzip";
-	Arch ar = Arch(input, output);
-	ar.archive();
-	Arch dear("our_archive.mgzip");
-	dear.dearchive();
-	cout << "smthng";
+	//vector <string> input = { "file1.txt","file2.txt" };
+	//string output = "our_archive.mgzip";
+	//perform_arch(input, output);
+	//perform_dearch(output);
 
-	if (argc >= 4) {
+	if (argc >= 3) {
 		char option;
 		string output;
-		string* input = new string[argc - 3];
+		vector <string> input;
 		arguments(argc, argv, option, output, input);
-	
-		//test:
-		cout << "Your option is --" << option << endl;
-		cout << "Output file is " << output << endl;
-		cout << "Input files: ";
-		for (int i = 3; i < argc; i++) {
-			cout << input[i - 3] << " ";
-		}
+
+		if (option == 'c') perform_arch(input, output);
+		if (option == 'd') perform_dearch(output);
 	}
 	else {
 		cout << "You need to run the program from cmd" << endl;		
 	}
 	
 
+}
+
+
+
+
+
+
+
+
+void perform_arch(vector <string> input, string output) {
+	Arch ar = Arch(input, output);
+	ar.archive();
+	for (int i = 0; i < input.size(); i++) {
+		cout <<"Compressing file "<< input[0] << "..... Done!" << endl;
+	}
+	cout << "Result written to " << output;
+}
+
+void perform_dearch(string output) {
+	Arch dear(output);
+	dear.dearchive();
 }
